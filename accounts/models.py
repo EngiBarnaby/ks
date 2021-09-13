@@ -1,9 +1,9 @@
 from django.db import models
-
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.contrib.auth.base_user import BaseUserManager
 
+    
 class CustomUserManager(BaseUserManager):
     
     def create_user(self, email, username ,password, **extra_fields):
@@ -12,7 +12,7 @@ class CustomUserManager(BaseUserManager):
 
         if not username:
             return ValueError("User must have a name")
-
+        
         email = self.normalize_email(email)
         user = self.model(email=email, 
                         username=username, 
@@ -45,7 +45,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
 
-    object = CustomUserManager()
+    objects = CustomUserManager()
 
     def __str__(self):
         return self.username
