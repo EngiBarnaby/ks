@@ -15,14 +15,14 @@
 
             <div id="navbarBasicExample" class="navbar-menu">
                 <div class="navbar-start">
-                <a class="navbar-item">
+                <a class="navbar-item" href="/">
                     Home
                 </a>
 
                 <a class="navbar-item">
                     Api
                 </a>
-                <a class="navbar-item">
+                <a class="navbar-item" href="/words">
                     Words
                 </a>
                 <div class="navbar-item has-dropdown is-hoverable">
