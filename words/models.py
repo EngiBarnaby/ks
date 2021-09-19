@@ -34,3 +34,6 @@ class WordTranslate(models.Model):
     translate = models.CharField(max_length=50, blank=False, null=False)
     word = models.ForeignKey(Word, on_delete=models.CASCADE,
                             related_name="words_translate")
+
+    def __str__(self):
+        return self.translate
