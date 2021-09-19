@@ -17,4 +17,5 @@ class WordList(generics.ListCreateAPIView):
 class WordListTest(generics.ListCreateAPIView):
     queryset = Word.objects.all()
     serializer_class = WordSerializer
+    permission_classes = [IsAuthenticated]
 

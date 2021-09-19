@@ -8,12 +8,21 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex"
 import Navbar from '@/components/Navbar.vue'
 
 export default {
   name: 'app',
   components: {
     Navbar,
+  },
+
+  methods : {
+    ...mapMutations(["initStore"])
+  },
+  mounted(){
+    this.initStore()
+
   }
 }
 </script>

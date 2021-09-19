@@ -50,13 +50,17 @@
 
                 <div class="navbar-end">
                 <div class="navbar-item">
+
+                    <a class="navbar-item">
+                        {{ getUserName }}
+                    </a>
                     <div class="buttons">
-                    <a class="button is-primary" href="/sign-up">
-                        <strong>Sign up</strong>
-                    </a>
-                    <a class="button is-light">
-                        Log in
-                    </a>
+                        <a class="button is-primary" href="/sign-up">
+                            <strong>Sign up</strong>
+                        </a>
+                        <a class="button is-light" href="/login">
+                            Log in
+                        </a>
                     </div>
                 </div>
                 </div>
@@ -66,7 +70,12 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex"
 export default {
-    name : "Navbar"
+    name : "Navbar",
+    
+    computed : {
+        ...mapGetters(["getUserName"])
+    }
 }
 </script>
