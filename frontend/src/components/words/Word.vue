@@ -4,19 +4,47 @@
             <h5 class="has-text-centered">
                 {{ word.content }}
             </h5>
-            <div class="part-of-speech">
-                <h5>
-                    {{word.part_of_speech}}
-                </h5>
+            <div class="add-word">
+                <span class="icon is-size-4 has-text-grey"><i class="fas fa-plus"></i></span>
             </div>
             <p class="has-text-centered word">
                 Translate
             </p>
 
-            <div v-for="wordTranslate in word.words_translate" :key="wordTranslate.id">
-                <p>
-                    {{ wordTranslate.translate }}
-                </p>
+            <div
+                class="content"
+                 v-for="wordTranslate in word.words_translate" :key="wordTranslate.id">
+                 <h6>{{wordTranslate.part_of_speech}}:  {{wordTranslate.translate}}</h6>
+            </div>
+            <div class="columns">
+                <div class="column is-8">
+                    <div class="field">
+                        <div class="control">
+                            <input class="input is-success" type="text" placeholder="Success input">
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-4">
+                    <div class="control">
+                        <div class="select">
+                            <select>
+                                <option>noun</option>
+                                <option>pronoun</option>
+                                <option>verb</option>
+                                <option>adjective</option>
+                                <option>adverb</option>
+                                <option>preposition</option>
+                                <option>conjunction</option>
+                                <option>interjection</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="has-text-centered">
+                <button class="button is-info is-light">
+                    Add translate
+                </button>
             </div>
         </div>
     </div>
@@ -47,7 +75,7 @@ export default {
     border-bottom: 1px solid black;
 }
 
-.part-of-speech {
+.add-word {
     position: absolute;
     // width: 40px;
     // height: 30px;
@@ -55,6 +83,10 @@ export default {
     top:  5px;
     left: 5px;
     padding-left: 3px;
+}
+
+.add-word:hover{
+    cursor: pointer;
 }
 
 </style>

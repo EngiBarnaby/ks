@@ -1,17 +1,20 @@
 from django.db import models
 from django.conf import settings
 
-class Word(models.Model):
-    CHOICES = (
-        ("n.", "NOUN"),
-        ("pro.", "PRONOUN"),
-        ("v.", "VERB"),
-        ("adj.", "ADJECTIVE"),
-        ("adv.", "ADVERB"),
-        ("pre.", "PREPOSITION"),
-        ("con.", "CONJUNCTION"),
-        ("int.", "INTERJECTION"),
+
+CHOICES = (
+        ("noun", "noun"),
+        ("pronoun", "pronoun"),
+        ("verb", "verb"),
+        ("adjective", "adjective"),
+        ("adverb", "adverb"),
+        ("preposition", "preposition"),
+        ("conjunction.", "conjunction"),
+        ("interjection", "interjection"),
     )
+
+
+class Word(models.Model):
 
     CHOICES_LANG = (
         ("rus", "Russian"),
@@ -21,7 +24,7 @@ class Word(models.Model):
                             on_delete=models.CASCADE,
                             related_name="words" )
     content = models.CharField(max_length=50, null=False, blank=False)
-    part_of_speech = models.CharField(max_length=50, choices=CHOICES)
+    # part_of_speech = models.CharField(max_length=50, choices=CHOICES)
     language = models.CharField(max_length=50, choices=CHOICES_LANG)
     create_at = models.DateField(auto_now_add=True) 
     create_at = models.DateField(auto_now=True)
@@ -32,6 +35,7 @@ class Word(models.Model):
 
 class WordTranslate(models.Model):
     translate = models.CharField(max_length=50, blank=False, null=False)
+    part_of_speech = models.CharField(max_length=50, choices=CHOICES)
     word = models.ForeignKey(Word, on_delete=models.CASCADE,
                             related_name="words_translate")
 
