@@ -54,13 +54,18 @@
                     <a class="navbar-item">
                         {{ getUserName }}
                     </a>
-                    <div class="buttons">
+                    <div class="buttons" v-if="!getIsAuthenticated">
                         <a class="button is-primary" href="/sign-up">
                             <strong>Sign up</strong>
                         </a>
                         <a class="button is-light" href="/login">
                             Log in
                         </a>
+                    </div>
+                    <div class="buttons" v-else-if="getIsAuthenticated" @click="userLogOut">
+                        <button class="button" href="/sign-up">
+                            <strong>Log out</strong>
+                        </button>
                     </div>
                 </div>
                 </div>
@@ -70,12 +75,19 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex"
+import { mapGetters, mapActions } from "vuex"
 export default {
     name : "Navbar",
     
     computed : {
-        ...mapGetters(["getUserName"])
+        ...mapGetters(["getUserName", "getIsAuthenticated"])
+    },
+
+    methods : {
+        ...mapActions(["logOut"]),
+        userLogOut(){
+            this.logOut()
+        }
     }
 }
 </script>

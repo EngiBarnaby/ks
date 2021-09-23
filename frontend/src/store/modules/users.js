@@ -3,37 +3,41 @@ import jwt_decode from "jwt-decode";
 const userStore = {
     state: {
         username : "",
-        email : "",
-        usertToken : "",
-        userRefreshtoken : "",
+        email: "",
+        is_authenticated : false
     },
 
     mutations: {
         
-        getUserName(state){
+        setUserName(state){
             let token = localStorage.getItem("token")
             let decoded = jwt_decode(token)
             let username = decoded.user_name
             localStorage.setItem("username", username)
             state.username = username
-
-            
         },
+
+
+        setAthenticated(state) {
+            state.is_authenticated = true
+        },
+
+        
 
         initStore(state){
             if (localStorage.getItem("token") && localStorage.getItem("username") && localStorage.getItem("refresh_token")){
                 state.username = localStorage.getItem("username")
                 state.email = localStorage.getItem("email")
-                state.usertToken = localStorage.getItem("token")
-                state.userRefreshtoken = localStorage.getItem("refresh_token")
+                state.is_authenticated = true
             }
             else {
                 state.username = ""
                 state.email = ""
-                state.usertToken = ""
-                state.userRefreshtoken = ""
+                state.is_authenticated = false
             }
-        }
+        },
+
+        
     },
 
     actions: {
@@ -55,11 +59,23 @@ const userStore = {
                     reject(error)
                 })
             })
+        },
+
+        logOut(context) {
+            context.state.username = ""
+            context.state.email = ""
+            context.state.is_authenticated = false
+            localStorage.removeItem("token")
+            localStorage.removeItem("refresh_token")
+            localStorage.removeItem("email")
+            localStorage.removeItem("username")
         }
+
     },
 
     getters: {
-        getUserName : state => state.username
+        getUserName: state => state.username,
+        getIsAuthenticated : state => state.is_authenticated
     }
 }
 

@@ -29,4 +29,5 @@ export default {
 
 <style lang="scss">
 @import '../node_modules/bulma';
+
 </style>

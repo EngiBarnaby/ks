@@ -51,11 +51,13 @@ export default {
 
     methods : {
         ...mapActions(["loginUser"]),
-        ...mapMutations(["getUserName"]),
+        ...mapMutations(["setUserName", "setAthenticated"]),
         submitForm(){
             this.loginUser({email: this.email, password: this.password})
             .then( () => {
-                this.getUserName()
+                this.setUserName()
+                this.setAthenticated()
+                this.$router.push("/")
             })
             .catch( error => console.log(error))
         }
