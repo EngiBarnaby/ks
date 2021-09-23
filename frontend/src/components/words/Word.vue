@@ -12,22 +12,27 @@
             </p>
 
             <div
-                class="content"
-                 v-for="wordTranslate in word.words_translate" :key="wordTranslate.id">
-                 <h6>{{wordTranslate.part_of_speech}}:  {{wordTranslate.translate}}</h6>
+                class="word-list"
+                 v-for="(wordTranslate, index) in translateList" :key="index">
+                 <p>{{wordTranslate.part_of_speech}}: <span class="has-text-weight-medium">{{wordTranslate.translate}}</span></p>
             </div>
-            <div class="columns">
+            <div class="columns mt-2">
                 <div class="column is-8">
                     <div class="field">
                         <div class="control">
-                            <input class="input is-success" type="text" placeholder="Success input">
+                            <input 
+                                class="input is-success" 
+                                type="text" 
+                                placeholder="Success input"
+                                v-model="translate"
+                                >
                         </div>
                     </div>
                 </div>
                 <div class="column is-4">
                     <div class="control">
                         <div class="select">
-                            <select>
+                            <select  v-model="part_of_speech">
                                 <option>noun</option>
                                 <option>pronoun</option>
                                 <option>verb</option>
@@ -42,7 +47,10 @@
                 </div>
             </div>
             <div class="has-text-centered">
-                <button class="button is-info is-light">
+                <button 
+                    class="button is-info is-light"
+                    @click="addNewTranslate"
+                >
                     Add translate
                 </button>
             </div>
@@ -52,6 +60,7 @@
 
 
 <script>
+import { mapActions } from "vuex"
 export default {
     props : {
         word : {
@@ -60,7 +69,26 @@ export default {
         }
     },
 
-    name : "WordList"
+    name : "WordList",
+
+    data(){
+        return {
+            translateList : this.word.words_translate,
+            translate : "",
+            part_of_speech: "",
+        }
+    },
+
+    methods : {
+        ...mapActions(["addWordTranslate"]),
+        addNewTranslate(){
+            let data = { "translate" : this.translate, "part_of_speech" : this.part_of_speech, "word" : this.word.id}
+            this.addWordTranslate(data)
+                .then(responce => {
+                    this.translateList.push(responce.data)
+                })
+        }
+    },
 }
 </script>
 
@@ -73,6 +101,10 @@ export default {
 
 .word {
     border-bottom: 1px solid black;
+}
+
+.word-list {
+    margin-bottom: 1px;
 }
 
 .add-word {
