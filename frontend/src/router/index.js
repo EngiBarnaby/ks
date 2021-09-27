@@ -10,7 +10,8 @@ const routes = [
   {
     path: '/words',
     name: 'Words',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Words.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/Words.vue'),
+    props : route => ({ page : parseInt(route.query.page) || 1})
   },
   {
     path: '/sign-up',

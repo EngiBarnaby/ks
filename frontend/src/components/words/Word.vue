@@ -84,9 +84,10 @@ export default {
         addNewTranslate(){
             let data = { "translate" : this.translate, "part_of_speech" : this.part_of_speech, "word" : this.word.id}
             this.addWordTranslate(data)
-                .then(responce => {
-                    this.translateList.push(responce.data)
-                })
+            .then(responce => {
+                this.translateList.push(responce.data)
+                this.translate = ""
+            })
         }
     },
 }
